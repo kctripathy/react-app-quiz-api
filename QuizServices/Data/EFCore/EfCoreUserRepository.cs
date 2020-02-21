@@ -34,9 +34,9 @@ namespace QuizServices.Data.EFCore
 
                 return qu.Id;
             }
-            catch 
+            catch (Exception ex)
             {
-
+                //throw new Exception(ex.Message);
                 returnValue = -1;
             }
             return returnValue;           
@@ -51,7 +51,7 @@ namespace QuizServices.Data.EFCore
             {
                 //Check if the user is trying to login with username
                 var quizUser = _context.QuizUsers.Where(u => u.UserName == userLoginCredentials.UserName).ToList();
-                if (quizUser == null || quizUser.Count.Equals(0))
+                if (quizUser == null || quizUser.Count.Equals(0) || string.IsNullOrEmpty(userLoginCredentials.UserName))
                 {
                     //Check if the user is trying to login with email
                     quizUser = _context.QuizUsers.Where(u => u.UserEmail == userLoginCredentials.UserEmail).ToList();

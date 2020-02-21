@@ -29,11 +29,17 @@ namespace QuizServices.Controllers
         {
             ReturnResponse returnResponse = null;
             int newUserId = _repository.Register(user);
-            returnResponse = ReturnResponse.Get(newUserId, user);
+           
             if (newUserId > 0)
+            {
+                returnResponse = ReturnResponse.Get(newUserId, user);
                 return Ok(returnResponse);
+            }
             else
-                return BadRequest(returnResponse);
+            {
+                return BadRequest(ReturnResponse.Get(newUserId));
+            }
+                
         }
 
 

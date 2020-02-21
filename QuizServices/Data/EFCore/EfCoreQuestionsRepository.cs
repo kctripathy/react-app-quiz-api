@@ -72,7 +72,7 @@ namespace QuizServices.Data.EFCore
                 {
 
                     Id = quizQuestionList[ctr - 1].Id,
-                    name = quizQuestionList[ctr - 1].Description, //string.Format("Q#{0} - {1}", ctr, QuestionList[ctr - 1].Description),                                       
+                    questionName = quizQuestionList[ctr - 1].Description, //string.Format("Q#{0} - {1}", ctr, QuestionList[ctr - 1].Description),                                       
                     options = GetAllOptions(quizQuestionList[ctr - 1].Id, quizQuestionList[ctr - 1].CorrectAnswerOptionId)
                 };
                 q.questionType = GetQuestionTypes(q.questionTypeId);
@@ -108,7 +108,7 @@ namespace QuizServices.Data.EFCore
                 Option o = new Option();
                 o.id = opt.Id;
                 o.questionId = questionId;
-                o.name = opt.Description; //string.Format("Option {0}-{1} | {2} ", questionId, ctr, opt.Description);
+                o.optionName = opt.Description; //string.Format("Option {0}-{1} | {2} ", questionId, ctr, opt.Description);
                 o.isAnswer = (opt.Id == correctAnswerOptionId);
                 oList.Add(o);
             }
@@ -144,7 +144,7 @@ namespace QuizServices.Data.EFCore
             try
             {
                 QuizQuestions ques = new QuizQuestions();
-                ques.Description = question.name;
+                ques.Description = question.questionName;
                 ques.AccountId = question.accountId;
                 ques.ClassSubjectId = question.classSubjectId;
 
@@ -156,7 +156,7 @@ namespace QuizServices.Data.EFCore
                 foreach (Option o in question.options)
                 {
                     QuizQuestionsOptions opt = new QuizQuestionsOptions();
-                    opt.Description = o.name;
+                    opt.Description = o.optionName;
                     opt.QuestionId = newQuestionId;
 
                     _context.QuizQuestionsOptions.Add(opt);
@@ -199,7 +199,7 @@ namespace QuizServices.Data.EFCore
             {
                 QuizQuestions ques = new QuizQuestions();
                 ques.Id = question.Id;
-                ques.Description = question.name;
+                ques.Description = question.questionName;
                 ques.AccountId = question.accountId;
                 ques.ClassSubjectId = question.classSubjectId;
 
@@ -211,7 +211,7 @@ namespace QuizServices.Data.EFCore
                 {
                     QuizQuestionsOptions opt = new QuizQuestionsOptions();
                     opt.Id = o.id;
-                    opt.Description = o.name;
+                    opt.Description = o.optionName;
                     opt.QuestionId = question.Id;
 
                     _context.QuizQuestionsOptions.Update(opt);

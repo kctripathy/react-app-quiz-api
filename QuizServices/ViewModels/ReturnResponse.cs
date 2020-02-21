@@ -45,6 +45,9 @@ namespace QuizServices.ViewModels
                 case ReturnConstant.INVALID_USER:
                     returnValue.Status  = new ReturnStatus(ReturnConstant.INVALID_USER.ToString(),ReturnConstant.INVALID_USER_MESSAGE);
                     break;
+                case ReturnConstant.DUPLICATE_USER:
+                    returnValue.Status = new ReturnStatus(ReturnConstant.DUPLICATE_USER.ToString(), ReturnConstant.DUPLICATE_USER_MESSAGE);
+                    break;
                 case ReturnConstant.INVALID_PASSWORD:
                     returnValue.Status = new ReturnStatus(ReturnConstant.INVALID_PASSWORD.ToString(),ReturnConstant.INVALID_PASSWORD_MESSAGE);
                     break;
@@ -119,6 +122,9 @@ namespace QuizServices.ViewModels
 
         public const int INVALID_USER = -10;
         public const string INVALID_USER_MESSAGE = "USER NOT FOUND";
+
+        public const int DUPLICATE_USER = -1;
+        public const string DUPLICATE_USER_MESSAGE = "USER ALREADY EXISTS";
 
         public const int INVALID_PASSWORD = -11;
         public const string INVALID_PASSWORD_MESSAGE= "INVALID PASSWORD";

@@ -18,7 +18,7 @@ namespace QuizServices.ViewModels
         }
 
 
-        public string name
+        public string optionName
         {
             get; set;
         }
