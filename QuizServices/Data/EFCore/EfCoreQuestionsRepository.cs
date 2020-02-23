@@ -45,6 +45,76 @@ namespace QuizServices.Data.EFCore
         }
 
         /// <summary>
+        /// GetQuestionById
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        internal Question GetQuestionById(int questionId)
+        {
+            Question q = null;
+            var quizQuestionList = _context.QuizQuestions
+                                            .Where(a => a.Id == questionId)
+                                            .OrderByDescending(a => a.Id)
+                                            .ToList();
+
+
+            int totalQuestion = quizQuestionList.Count;
+
+            List<Question> questionlist = new List<Question>();
+            for (int ctr = 1; ctr <= totalQuestion; ctr++)
+            {
+
+                q = new Question
+                {
+
+                    Id = quizQuestionList[ctr - 1].Id,
+                    questionName = quizQuestionList[ctr - 1].Description, //string.Format("Q#{0} - {1}", ctr, QuestionList[ctr - 1].Description),                                       
+                    options = GetAllOptions(quizQuestionList[ctr - 1].Id, quizQuestionList[ctr - 1].CorrectAnswerOptionId)
+                };
+                q.questionType = GetQuestionTypes(q.questionTypeId);
+                q.classSubjectId = quizQuestionList[ctr - 1].ClassSubjectId;
+                q.questionTypeId = 1;
+                q.accountId = quizQuestionList[ctr - 1].QuestionTypeId;           
+            }
+
+
+            return q;
+        }
+
+        internal List<Question> GetAllQuestionsByAccountId(int accountId)
+        {
+
+            var quizQuestionList = _context.QuizQuestions
+                                            .Where(q => q.AccountId == accountId)
+                                            .OrderByDescending(a=>a.Id)
+                                            .ToList();
+
+            
+             int   totalQuestion = quizQuestionList.Count;
+  
+            List<Question> questionlist = new List<Question>();
+            for (int ctr = 1; ctr <= totalQuestion; ctr++)
+            {
+
+                Question q = new Question
+                {
+
+                    Id = quizQuestionList[ctr - 1].Id,
+                    questionName = quizQuestionList[ctr - 1].Description, //string.Format("Q#{0} - {1}", ctr, QuestionList[ctr - 1].Description),                                       
+                    options = GetAllOptions(quizQuestionList[ctr - 1].Id, quizQuestionList[ctr - 1].CorrectAnswerOptionId)
+                };
+                q.questionType = GetQuestionTypes(q.questionTypeId);
+                q.classSubjectId = quizQuestionList[ctr - 1].ClassSubjectId;
+                q.questionTypeId = 1;
+                q.accountId = accountId;
+                questionlist.Add(q);
+            }
+
+
+            return questionlist;
+        }
+
+        /// <summary>
         /// To get all the questions for a class and subject
         /// </summary>
         /// <param name="classSubjectId">classSubjectId</param>
@@ -77,6 +147,7 @@ namespace QuizServices.Data.EFCore
                 };
                 q.questionType = GetQuestionTypes(q.questionTypeId);
                 q.classSubjectId = classSubjectId;
+                q.questionTypeId = 1;
                 q.accountId = accountId;
                 questionlist.Add(q);
             }
@@ -97,6 +168,7 @@ namespace QuizServices.Data.EFCore
             List<QuizQuestionsOptions> questionOptions = _context
                                                             .QuizQuestionsOptions
                                                             .Where(a => a.QuestionId == questionId)
+                                                            .OrderBy(a => Guid.NewGuid())
                                                             .ToList();
 
             // Adding options for the question

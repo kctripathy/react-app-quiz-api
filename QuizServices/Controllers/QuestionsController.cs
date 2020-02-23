@@ -28,6 +28,18 @@ namespace QuizServices.Controllers
             return Ok(_repository.GetQuizQuestionsByClassSubjctAndAccountId(classSubjectid, accountId, totalQuestionsToFetch));
         }
 
+        [HttpGet("all/{accountId}", Name = "GetAllQuestionsByAccountId")]
+        public IActionResult GetAllQuestionsByAccountId(int accountId)
+        {
+            return Ok(_repository.GetAllQuestionsByAccountId(accountId));
+        }
+
+        [HttpGet("getbyid/{questionId}", Name = "GetQuestionById")]
+        public IActionResult GetAllQuestionById(int questionId)
+        {
+            return Ok(_repository.GetQuestionById(questionId));
+        }
+
         [HttpPost]
         [Route("[action]")]
         public IActionResult Add([FromBody] Question question)
