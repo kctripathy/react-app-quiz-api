@@ -57,7 +57,7 @@ namespace QuizServices.Controllers
                 return BadRequest("Failed to insert the question");
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("[action]")]
         public IActionResult Update([FromBody] Question question)
         {
@@ -69,9 +69,9 @@ namespace QuizServices.Controllers
             int newQuestionId = _repository.UpdateQuestion(question);
 
             if (newQuestionId > 0)
-                return Ok(ReturnResponse.GetSuccessStatus("Successfully Inserted: new id is: " + newQuestionId.ToString()));
+                return Ok(ReturnResponse.GetSuccessStatus("Successfully Updated the question : " + newQuestionId.ToString()));
             else
-                return BadRequest("Failed to insert the question");
+                return BadRequest("Failed to Update the question");
         }
 
         [HttpDelete]

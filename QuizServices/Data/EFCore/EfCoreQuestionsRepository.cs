@@ -274,7 +274,7 @@ namespace QuizServices.Data.EFCore
                 ques.Description = question.questionName;
                 ques.AccountId = question.accountId;
                 ques.ClassSubjectId = question.classSubjectId;
-
+                ques.QuestionTypeId = question.questionTypeId;
                 _context.QuizQuestions.Update(ques);
                 _context.SaveChanges();
 

@@ -20,7 +20,7 @@ namespace QuizServices.ViewModels
             get; set;
         }
 
-        public int questionTypeId
+        public short questionTypeId
         {
             get; set;
         }
