@@ -28,7 +28,7 @@ namespace QuizServices.Controllers
             return Ok(_repository.GetQuizQuestionsByClassSubjctAndAccountId(classSubjectid, accountId, totalQuestionsToFetch));
         }
 
-        [HttpGet("all/{accountId}", Name = "GetAllQuestionsByAccountId")]
+        [HttpGet("list/{accountId}", Name = "GetAllQuestionsByAccountId")]
         public IActionResult GetAllQuestionsByAccountId(int accountId)
         {
             return Ok(_repository.GetAllQuestionsByAccountId(accountId));
