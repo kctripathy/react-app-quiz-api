@@ -6,7 +6,7 @@ namespace QuizServices.Models
 {
     public partial class QuizContext : DbContext
     {
-       
+
         public QuizContext(DbContextOptions<QuizContext> options)
             : base(options)
         {
@@ -25,7 +25,9 @@ namespace QuizServices.Models
         public virtual DbSet<QuizStates> QuizStates { get; set; }
         public virtual DbSet<QuizSubjects> QuizSubjects { get; set; }
         public virtual DbSet<QuizUsers> QuizUsers { get; set; }
- 
+
+       
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<QuizAccounts>(entity =>
@@ -151,6 +153,8 @@ namespace QuizServices.Models
                     .IsRequired()
                     .IsUnicode(false);
 
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.QuestionTypeId)
                     .HasColumnName("QuestionTypeID")
                     .HasDefaultValueSql("((1))");
@@ -275,10 +279,6 @@ namespace QuizServices.Models
             {
                 entity.ToTable("Quiz_Users");
 
-                entity.HasIndex(e => e.UserName)
-                    .HasName("IX_QuizUser")
-                    .IsUnique();
-
                 entity.Property(e => e.AccessLevel).HasDefaultValueSql("((100))");
 
                 entity.Property(e => e.AccessToken)
@@ -305,6 +305,10 @@ namespace QuizServices.Models
 
                 entity.Property(e => e.Salt)
                     .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SubjectIds)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedBy)
@@ -338,6 +342,11 @@ namespace QuizServices.Models
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Quiz_Users_Quiz_Accounts");
+
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.QuizUsers)
+                    .HasForeignKey(d => d.ClassId)
+                    .HasConstraintName("FK_Quiz_Users_Quiz_Classes");
             });
         }
     }

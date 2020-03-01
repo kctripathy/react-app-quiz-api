@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ModelsOld\**" />
     <Compile Remove="Services\**" />
+    <Content Remove="ModelsOld\**" />
     <Content Remove="Services\**" />
+    <EmbeddedResource Remove="ModelsOld\**" />
     <EmbeddedResource Remove="Services\**" />
+    <None Remove="ModelsOld\**" />
     <None Remove="Services\**" />
   </ItemGroup>
 
@@ -16,6 +20,20 @@
     <Compile Remove="Controllers\QuizQuestionsController.cs" />
     <Compile Remove="Controllers\QuizUsersController.cs" />
     <Compile Remove="Controllers\ValuesController.cs" />
+    <Compile Remove="QuizAccounts.cs" />
+    <Compile Remove="QuizAddresses.cs" />
+    <Compile Remove="QuizClasses.cs" />
+    <Compile Remove="QuizClassesSubject.cs" />
+    <Compile Remove="QuizContext.cs" />
+    <Compile Remove="QuizCountries.cs" />
+    <Compile Remove="QuizQuestions.cs" />
+    <Compile Remove="QuizQuestionsOptions.cs" />
+    <Compile Remove="QuizQuestionsTypes.cs" />
+    <Compile Remove="QuizResultDetails.cs" />
+    <Compile Remove="QuizResultMaster.cs" />
+    <Compile Remove="QuizStates.cs" />
+    <Compile Remove="QuizSubjects.cs" />
+    <Compile Remove="QuizUsers.cs" />
     <Compile Remove="Respond.cs" />
     <Compile Remove="ViewModels\QuizContext.cs" />
     <Compile Remove="ViewModels\QuizQuestionOutput.cs" />

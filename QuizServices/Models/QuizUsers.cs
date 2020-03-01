@@ -23,7 +23,10 @@ namespace QuizServices.Models
         public DateTime? UpdatedDate { get; set; }
         public string Salt { get; set; }
         public string AccessToken { get; set; }
+        public int? ClassId { get; set; }
+        public string SubjectIds { get; set; }
 
         public QuizAccounts Account { get; set; }
+        public QuizClasses Class { get; set; }
     }
 }

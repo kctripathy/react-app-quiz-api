@@ -16,6 +16,7 @@ namespace QuizServices.Models
         public short? QuestionTypeId { get; set; }
         public int? ClassSubjectId { get; set; }
         public int? AccountId { get; set; }
+        public bool? IsActive { get; set; }
 
         public QuizAccounts Account { get; set; }
         public QuizClassesSubject ClassSubject { get; set; }

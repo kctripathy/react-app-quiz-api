@@ -8,6 +8,7 @@ namespace QuizServices.Models
         public QuizClasses()
         {
             QuizClassesSubject = new HashSet<QuizClassesSubject>();
+            QuizUsers = new HashSet<QuizUsers>();
         }
 
         public int Id { get; set; }
@@ -15,5 +16,6 @@ namespace QuizServices.Models
         public bool? IsActive { get; set; }
 
         public ICollection<QuizClassesSubject> QuizClassesSubject { get; set; }
+        public ICollection<QuizUsers> QuizUsers { get; set; }
     }
 }

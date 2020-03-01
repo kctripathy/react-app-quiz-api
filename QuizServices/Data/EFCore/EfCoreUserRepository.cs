@@ -24,7 +24,11 @@ namespace QuizServices.Data.EFCore
                     UserEmail = user.UserEmail,
                     UserName = user.UserName,
                     Fullname = user.Fullname,
+                    UserPhone = user.UserPhone,
+                    ClassId = user.ClassId,
+                    SubjectIds = user.SubjectIds,
                     Salt = Security.GetNewSalt(5)
+
                 };
                 qu.UserPassword = Security.GetSaltedHashPassword(qu.Salt, user.UserPassword);
                 qu.AccessLevel = user.AccessLevel;
