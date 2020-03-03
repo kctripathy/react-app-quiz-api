@@ -67,5 +67,13 @@ namespace QuizServices.Controllers
         {
             return Ok("Logged out successfully");
         }
+
+
+        [HttpGet]
+        [Route("[Action]")]
+        public IActionResult all(int accountId)
+        {
+            return Ok(ReturnResponse.GetSuccessStatus(_repository.GetAllUsersByAccountId(accountId)));
+        }
     }
 }

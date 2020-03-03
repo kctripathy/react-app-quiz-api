@@ -1,6 +1,7 @@
 ﻿using QuizServices.Models;
 using QuizServices.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QuizServices.Data.EFCore
@@ -123,6 +124,15 @@ namespace QuizServices.Data.EFCore
             }
 
             return usr;
+        }
+
+        public List<QuizUsers> GetAllUsersByAccountId(int accountId)
+        {
+            var usersList = _context.QuizUsers
+                                .Where(u => u.AccountId == accountId)
+                                .ToList();
+
+            return usersList;
         }
     }
 }
