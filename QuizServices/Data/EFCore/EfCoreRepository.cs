@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QuizServices.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace QuizServices.Data.EFCore
 
         public async Task<List<TEntity>> GetAll()
         {
-            return await context.Set<TEntity>().ToListAsync();
+            return await (context.Set<TEntity>().ToListAsync());
         }
 
         public async Task<TEntity> Update(TEntity entity)

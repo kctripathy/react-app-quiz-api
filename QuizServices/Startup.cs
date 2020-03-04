@@ -38,6 +38,7 @@ namespace QuizServices
             });
 
             //Repository Pattern classes add
+            services.AddScoped<EfCoreAccountRepository>();
             services.AddScoped<EfCoreUsersRepository>();
             services.AddScoped<EfCoreClassesRepository>();
             services.AddScoped<EfCoreSubjectsRepository>();
