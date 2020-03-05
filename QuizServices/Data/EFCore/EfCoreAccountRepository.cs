@@ -17,5 +17,7 @@ namespace QuizServices.Data.EFCore
         {
             return _context.QuizAccounts.ToList();
         }
+
+        
     }
 }
