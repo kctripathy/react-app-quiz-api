@@ -23,6 +23,7 @@ namespace QuizServices.Controllers
             _repository = repository;
         }
 
+        
         [HttpPost]
         [Route("[Action]")]
         public IActionResult Register([FromBody] QuizUsers user)

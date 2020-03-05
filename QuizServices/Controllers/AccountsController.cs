@@ -24,10 +24,21 @@ namespace QuizServices.Controllers
 
         [HttpGet]
         [Route("[Action]")]
-        public IActionResult all()
+        public IActionResult All()
         {
             var accounts = _repository.GetAllAccounts();
             return Ok(ReturnResponse.GetSuccessStatus(accounts));
+        }
+
+        [HttpPost]
+        [Route("[Action]")]
+        public IActionResult Addnew([FromBody] Account account)
+        {
+            bool result = _repository.CreateNewAccount(account);
+            if (result == true)
+                return Ok(ReturnResponse.GetSuccessStatus(result));
+            else
+                return BadRequest(ReturnResponse.GetFailureStatus(result));
         }
     }
 }
