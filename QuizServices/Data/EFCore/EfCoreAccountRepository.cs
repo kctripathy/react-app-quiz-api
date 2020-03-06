@@ -85,6 +85,11 @@ namespace QuizServices.Data.EFCore
             }
         }
 
+        internal bool UpdateAccount(Account account)
+        {
+            return false;
+        }
+
         private int AddNewUser(QuizUsers user)
         {
             int returnValue = 0;
@@ -112,7 +117,7 @@ namespace QuizServices.Data.EFCore
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
                 returnValue = -1;
             }
             return returnValue;

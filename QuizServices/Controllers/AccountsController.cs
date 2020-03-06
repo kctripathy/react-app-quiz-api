@@ -32,9 +32,20 @@ namespace QuizServices.Controllers
 
         [HttpPost]
         [Route("[Action]")]
-        public IActionResult Addnew([FromBody] Account account)
+        public IActionResult AddNew([FromBody] Account account)
         {
             bool result = _repository.CreateNewAccount(account);
+            if (result == true)
+                return Ok(ReturnResponse.GetSuccessStatus(result));
+            else
+                return BadRequest(ReturnResponse.GetFailureStatus(result));
+        }
+
+        [HttpPut]
+        [Route("[Action]")]
+        public IActionResult UpdateAccount([FromBody] Account account)
+        {
+            bool result = _repository.UpdateAccount(account);
             if (result == true)
                 return Ok(ReturnResponse.GetSuccessStatus(result));
             else
