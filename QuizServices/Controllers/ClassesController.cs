@@ -8,9 +8,10 @@ namespace QuizServices.Controllers
     [ApiController]
     public class ClassesController : QuizContextBaseController<QuizClasses, EfCoreClassesRepository>
     {
+        EfCoreClassesRepository _repository;
         public ClassesController (EfCoreClassesRepository repository): base(repository)
         {
-
+            _repository = repository;
         }        
     }
 }
