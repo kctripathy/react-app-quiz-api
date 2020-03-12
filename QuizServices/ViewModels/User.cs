@@ -11,6 +11,8 @@ namespace QuizServices.ViewModels
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
+        public int? ClassId { get; set; }
+
         public string Fullname { get; set; }
         public string UserName { get; set; }
         public string UserEmail { get; set; }

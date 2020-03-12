@@ -94,8 +94,9 @@ namespace QuizServices.Data.EFCore
                     returnValue = user.Id;
                     usr = new User
                     {     
-                         Id = user.Id,
+                        Id = user.Id,
                         AccountId = user.AccountId,
+                        ClassId = user.ClassId,
                         Fullname = user.Fullname,
                         UserEmail = user.UserEmail,
                         AccessLevel=user.AccessLevel,
