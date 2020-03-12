@@ -121,19 +121,19 @@ namespace QuizServices.ViewModels
         public const string FAILURE_MESSAGE = "FAILURE";
 
         public const int INVALID_USER = -10;
-        public const string INVALID_USER_MESSAGE = "USER NOT FOUND";
+        public const string INVALID_USER_MESSAGE = "User doesnot exist";
 
         public const int DUPLICATE_USER = -1;
-        public const string DUPLICATE_USER_MESSAGE = "USER ALREADY EXISTS";
+        public const string DUPLICATE_USER_MESSAGE = "User/Email already exists";
 
         public const int INVALID_PASSWORD = -11;
-        public const string INVALID_PASSWORD_MESSAGE= "INVALID PASSWORD";
+        public const string INVALID_PASSWORD_MESSAGE= "Invalid login credentials";
 
         public const int USER_NOT_ALLOWED_TO_LOGIN = -12;
-        public const string USER_NOT_ALLOWED_TO_LOGIN_MESSAGE = "USER NOT ALLOWED TO LOGIN";
+        public const string USER_NOT_ALLOWED_TO_LOGIN_MESSAGE = "User not allowed to login!";
 
         public const int INVALID_OPERATION= -100;
-        public const string INVALID_OPERATION_MESSAGE= "INVALID OPERATION";
+        public const string INVALID_OPERATION_MESSAGE= "Invalid Operation";
 
         public const int CLASS_SUBJECT_NOT_FOUND_QUESTION_AVAILABLE = -200;
         public const string CLASS_SUBJECT_NOT_FOUND_QUESTION_AVAILABLE_MESSAGE = "Classes and subjects not found for the account for which any question available";
