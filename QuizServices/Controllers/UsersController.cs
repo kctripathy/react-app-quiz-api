@@ -76,5 +76,39 @@ namespace QuizServices.Controllers
         {
             return Ok(ReturnResponse.GetSuccessStatus(_repository.GetAllUsersByAccountId(accountId)));
         }
+
+        [HttpPut]
+        [Route("[Action]")]
+        public IActionResult update([FromBody] QuizUsers user)
+        {
+
+            ReturnResponse returnResponse = null;
+
+            int returnResult = _repository.UpdateUser(user);
+            
+            if (returnResult > 0) // Successfully updated
+            {
+                return Ok(returnResult);
+            }
+            else // Failed to updated
+            {
+                return BadRequest(returnResult);
+            }
+
+
+            return Ok(returnResponse);
+            //int newUserId = _repository.Register(user);
+
+            //if (newUserId > 0)
+            //{
+            //    returnResponse = ReturnResponse.Get(newUserId, user);
+            //    return Ok(returnResponse);
+            //}
+            //else
+            //{
+            //    return BadRequest(ReturnResponse.Get(newUserId));
+            //}
+
+        }
     }
 }
