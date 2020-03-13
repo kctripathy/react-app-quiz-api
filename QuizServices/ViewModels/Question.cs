@@ -52,5 +52,7 @@ namespace QuizServices.ViewModels
         {
             get; set;
         }
+
+        public bool isActive { get; set; } = true;
     }
 }

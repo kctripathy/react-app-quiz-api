@@ -74,7 +74,7 @@ namespace QuizServices.Data.EFCore
                 q.questionType = GetQuestionTypes(q.questionTypeId);
                 q.classSubjectId = quizQuestionList[ctr - 1].ClassSubjectId;
                 q.questionTypeId = 1;
-                q.accountId = quizQuestionList[ctr - 1].QuestionTypeId;           
+                q.accountId = quizQuestionList[ctr - 1].AccountId;           
             }
 
 
@@ -310,6 +310,7 @@ namespace QuizServices.Data.EFCore
                 ques.AccountId = question.accountId;
                 ques.ClassSubjectId = question.classSubjectId;
                 ques.QuestionTypeId = question.questionTypeId;
+                ques.IsActive = question.isActive;
                 _context.QuizQuestions.Update(ques);
                 _context.SaveChanges();
 
