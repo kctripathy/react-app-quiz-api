@@ -101,7 +101,7 @@ namespace QuizServices.Data.EFCore
                         Fullname = user.Fullname,
                         UserEmail = user.UserEmail,
                         AccessLevel=user.AccessLevel,
-                        LastLogin = user.LastLoginDate,
+                        LastLoginDate = user.LastLoginDate,
                         AccessToken = Security.GetAccessToken(),
                         AccountName = GetAcountName(user.AccountId)
                     };
@@ -162,7 +162,7 @@ namespace QuizServices.Data.EFCore
                 qu.Fullname = user.Fullname;
                 qu.ClassId = user.ClassId;
                 qu.AccessLevel = user.AccessLevel;
-                qu.AllowLogin = true;
+                qu.AllowLogin = user.AllowLogin;
                 qu.UserPhone = user.UserPhone;
 
                 // check if user supplied a new email id
@@ -203,7 +203,9 @@ namespace QuizServices.Data.EFCore
                     qu.Salt = user2update.Salt;
                     qu.UserPassword = user2update.UserPassword;
                 }
-                
+
+                //qu.AllowLogin = user2update.AllowLogin;
+                qu.LastLoginDate = user2update.LastLoginDate;
                 qu.UserName = user2update.UserName;
                 qu.AccountId = user2update.AccountId;                 
 
@@ -219,11 +221,17 @@ namespace QuizServices.Data.EFCore
             }
         }
 
-        public List<QuizUsers> GetAllUsersByAccountId(int accountId)
+        public List<User> GetAllUsersByAccountId(int accountId)
         {
-            var usersList = _context.QuizUsers
-                                .Where(u => u.AccountId == accountId)
-                                .ToList();
+            //var usersList = _context.QuizUsers
+            //                    .Where(u => u.AccountId == accountId)
+            //                    .ToList();
+
+            
+            var usersList = _context
+                                   .Users
+                                   .FromSql($"GetAllUsersByAccountId {accountId}")
+                                   .ToList();
 
             return usersList;
         }

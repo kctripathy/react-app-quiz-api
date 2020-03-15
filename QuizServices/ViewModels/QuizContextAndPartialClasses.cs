@@ -13,6 +13,7 @@ namespace QuizServices.Models
         public virtual DbSet<QuestionAvailaleClassAndSubject> QuestionAvailaleClassAndSubjects { get; set; }
         public virtual DbSet<ClassSubject> ClassSubject { get; set; }
         public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 
     public partial class QuizAccounts : IEntity
