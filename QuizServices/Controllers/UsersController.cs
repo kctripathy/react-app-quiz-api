@@ -88,11 +88,11 @@ namespace QuizServices.Controllers
             
             if (returnResult > 0) // Successfully updated
             {
-                return Ok(returnResult);
+                return Ok(ReturnResponse.GetSuccessStatus(returnResult));
             }
             else // Failed to updated
             {
-                return BadRequest(returnResult);
+                return BadRequest (ReturnResponse.GetFailureStatus(returnResult));
             }
 
 

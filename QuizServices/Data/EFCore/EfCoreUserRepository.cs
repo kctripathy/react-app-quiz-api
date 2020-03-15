@@ -102,12 +102,14 @@ namespace QuizServices.Data.EFCore
                         UserEmail = user.UserEmail,
                         AccessLevel=user.AccessLevel,
                         LastLogin = user.LastLoginDate,
-                        AccessToken = Security.GetAccessToken()
+                        AccessToken = Security.GetAccessToken(),
+                        AccountName = GetAcountName(user.AccountId)
                     };
 
                     //Update the access token and last login date in the user table
                     //lastLogin = user.LastLoginDate;
 
+                    
                     user.AccessToken = usr.AccessToken;
                     user.LastLoginDate = DateTime.Now;
 
@@ -128,6 +130,25 @@ namespace QuizServices.Data.EFCore
             return usr;
         }
 
+        private string GetAcountName(int accountId)
+        {
+            string accName = string.Empty;
+            try
+            {
+                var account = _context.QuizAccounts.Where(a => a.Id == accountId).ToList();
+                if (account.Count > 0)
+                {
+                    accName= account[0].AccountName;
+                }
+                return accName;
+            }
+            catch (Exception ex)
+            {
+                return "";
+               // throw;
+            }
+        }
+
         internal int UpdateUser(QuizUsers user)
         {
             try
@@ -142,6 +163,7 @@ namespace QuizServices.Data.EFCore
                 qu.ClassId = user.ClassId;
                 qu.AccessLevel = user.AccessLevel;
                 qu.AllowLogin = true;
+                qu.UserPhone = user.UserPhone;
 
                 // check if user supplied a new email id
                 if (user2update.UserEmail != user.UserEmail)
