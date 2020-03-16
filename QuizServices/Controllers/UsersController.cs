@@ -110,5 +110,71 @@ namespace QuizServices.Controllers
             //}
 
         }
+
+        [HttpPost]
+        [Route("[Action]")]
+        [EnableCors("MyPolicy")]
+        public IActionResult GetResetPasswordLink(User user)
+        {
+            string authKey = string.Empty;
+            int returnResult = _repository.GetResetPasswordLink(user.UserEmail, out authKey);
+            if (returnResult > 0)
+            {
+                return Ok(ReturnResponse.GetSuccessStatus(authKey));
+            }
+            else if (returnResult == -1) {
+                return BadRequest(ReturnResponse.GetFailureStatus("Email doesn't exists"));
+            }
+            else
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Failed to get password reset link"));
+            }             
+        }
+
+        [HttpPost]
+        [Route("[Action]")]
+        [EnableCors("MyPolicy")]
+        public IActionResult ResetPassword(User user)
+        {
+            
+            int returnResult = _repository.ResetPassword(user);
+            if (returnResult > 0)
+            {
+                return Ok(ReturnResponse.GetSuccessStatus("Password changed successfully"));
+            }
+            else if (returnResult == -1)
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Link doesn't exists"));
+            }
+            else if (returnResult == -2)
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Link expired"));
+            }
+            else if (returnResult == -3)
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Invalid auth key"));
+            }
+            else
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Failed to reset password"));
+            }
+        }
+
+        [HttpPost]
+        [Route("[Action]")]
+        [EnableCors("MyPolicy")]
+        public IActionResult InsertContactLog(Quiz_ContactLog contactLog)
+        {
+
+            int returnResult = _repository.InsertContactLog(contactLog);
+            if (returnResult > 0)
+            {
+                return Ok(ReturnResponse.GetSuccessStatus("Contact logged successfully"));
+            }             
+            else
+            {
+                return BadRequest(ReturnResponse.GetFailureStatus("Failed to log the contact"));
+            }
+        }
     }
 }

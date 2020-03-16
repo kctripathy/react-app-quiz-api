@@ -130,6 +130,59 @@ namespace QuizServices.Data.EFCore
             return usr;
         }
 
+        internal int ResetPassword(User user)
+        {
+            int returnValue = 0;            
+            try
+            {
+                var qprLinks = _context.Quiz_PasswordReset.AsNoTracking().Where(e => e.UserName == user.UserEmail).ToList();
+                if (qprLinks.Count == 0)
+                    returnValue = -1;
+                else
+                {
+                    Quiz_PasswordReset qprLink = qprLinks[0];
+                    //Check the link expiry flag
+                    if (qprLink.Expired_fg.Equals("Y"))
+                    {
+                        returnValue = -2;
+                    }
+                    else if (qprLink.AuthKey.ToString().ToUpper() != user.AccessToken.ToUpper())
+                    {
+                        returnValue = -3;
+                    }
+                    else
+                    {
+                        string salt = Security.GetNewSalt();
+                        string hashedPwd = Security.GetSaltedHashPassword(salt, user.UserPassword);
+                        var qu = _context.QuizUsers.AsNoTracking().Where(u => u.UserEmail == user.UserEmail).ToList();
+
+                        QuizUsers quser = qu[0];
+                        quser.Salt = salt;
+                        quser.UserPassword = hashedPwd;
+
+                        _context.QuizUsers.Update(quser);
+                        _context.SaveChanges();
+
+                        // Update password reset flag;
+                        qprLink.Expired_fg = "Y";
+                        qprLink.PasswordResetDate = DateTime.Now;
+                        _context.Quiz_PasswordReset.Update(qprLink);
+                        _context.SaveChanges();
+
+                        returnValue = 1;
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                returnValue = -10;
+                //throw;
+            }
+            return returnValue;
+        }
+
+  
         private string GetAcountName(int accountId)
         {
             string accName = string.Empty;
@@ -235,5 +288,56 @@ namespace QuizServices.Data.EFCore
 
             return usersList;
         }
+
+        internal int InsertContactLog(Quiz_ContactLog contactLog)
+        {
+            try
+            {
+                _context.Quiz_ContactLog.Add(contactLog);
+                _context.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        internal int GetResetPasswordLink(string email, out string authKey)
+        {
+            authKey = string.Empty;
+            try
+            {
+                var users = _context.QuizUsers.Where(e => e.UserEmail == email).ToList();
+                if (users.Count == 0)
+                {
+                    return -1;
+                }
+                else
+                {
+
+                    Quiz_PasswordReset qpr = new Quiz_PasswordReset();
+                    qpr.AuthKey = Guid.NewGuid();
+                    qpr.GeneratedByUserId = users[0].Id;
+                    qpr.UserName = email;
+                    qpr.Expired_fg = "N";
+
+                    _context.Quiz_PasswordReset.Add(qpr);
+                    _context.SaveChanges();
+
+                    authKey = qpr.AuthKey.ToString();
+
+                    return qpr.GeneratedByUserId;
+                }
+            }
+            catch (Exception)
+            {
+                return -2;
+                //throw;
+            }
+
+
+        }
+
     }
 }

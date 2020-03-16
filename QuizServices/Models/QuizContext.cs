@@ -26,7 +26,9 @@ namespace QuizServices.Models
         public virtual DbSet<QuizSubjects> QuizSubjects { get; set; }
         public virtual DbSet<QuizUsers> QuizUsers { get; set; }
 
-       
+        public virtual DbSet<Quiz_ContactLog> Quiz_ContactLog { get; set; }
+        public virtual DbSet<Quiz_PasswordReset> Quiz_PasswordReset { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -347,6 +349,28 @@ namespace QuizServices.Models
                     .WithMany(p => p.QuizUsers)
                     .HasForeignKey(d => d.ClassId)
                     .HasConstraintName("FK_Quiz_Users_Quiz_Classes");
+            });
+
+            modelBuilder.Entity<Quiz_ContactLog>(entity =>
+            {
+                entity.Property(e => e.EmailBody).IsUnicode(false);
+
+                entity.Property(e => e.EmailDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.EmailFrom).IsUnicode(false);
+
+                entity.Property(e => e.EmailSubject).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Quiz_PasswordReset>(entity =>
+            {
+                entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Expired_fg)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('N')");
+
+                entity.Property(e => e.UserName).IsUnicode(false);
             });
         }
     }

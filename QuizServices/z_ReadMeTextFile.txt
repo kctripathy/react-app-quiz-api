@@ -17,8 +17,7 @@ Scaffold-DbContext “Server=TSLC0750\SQLEXPRESS;Database=Quiz;Integrated Securi
 
 Scaffold-DbContext “Server=TSLC0750\SQLEXPRESS;Database=Quiz;Integrated Security=True;user id=sa;password=maa@1234;” Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables Quiz_Countries
 
-
-
+Scaffold-DbContext "Server=TSLC0750\SQLEXPRESS_2014;Database=Quiz;Persist Security Info=False;User ID=sa;Password=elaw@1234;" Microsoft.EntityFrameworkCore.SqlServer -Tables "Quiz_PasswordReset","Quiz_ContactLog" -ContextDir ".\Models" -OutputDir "Models" -force -DataAnnotations -UseDatabaseNames
 
 It provides support for creating and validating a JWT token.
 Install-Package IdentityModel.Tokens.Jwt -Version 5.6.0
