@@ -17,7 +17,10 @@ Scaffold-DbContext “Server=TSLC0750\SQLEXPRESS;Database=Quiz;Integrated Securi
 
 Scaffold-DbContext “Server=TSLC0750\SQLEXPRESS;Database=Quiz;Integrated Security=True;user id=sa;password=maa@1234;” Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables Quiz_Countries
 
-Scaffold-DbContext "Server=TSLC0750\SQLEXPRESS_2014;Database=Quiz;Persist Security Info=False;User ID=sa;Password=elaw@1234;" Microsoft.EntityFrameworkCore.SqlServer -Tables "Quiz_PasswordReset","Quiz_ContactLog" -ContextDir ".\Models" -OutputDir "Models" -force -DataAnnotations -UseDatabaseNames
+Scaffold-DbContext "Server=TSLC0750\SQLEXPRESS_2014;Database=Quiz;Persist Security Info=False;User ID=sa;Password=elaw@1234;" Microsoft.EntityFrameworkCore.SqlServer  -Tables "Quiz_PasswordReset","Quiz_ContactLog" -context TempContext -ContextDir ".\Models" -OutputDir "Models" -force -DataAnnotations -UseDatabaseNames
+
+
+I wish there were a built-in way to add entities and update an existing context, but there doesn't seem to be. I overcame this by using the --context option in the package manager console and just gave it a temporary name, e.g. --context TempContext. This worked and generated the new table and the temp context. Then I just copied the public virtual DbSet<NewEntityType> NewEntityType { get; set; } property and the modelBuilder.Entity<NewEntityType>(entity => block from the OnModelCreating method in the temp context to my existing one. After that, I deleted the temp context. It's pretty straightforward.
 
 It provides support for creating and validating a JWT token.
 Install-Package IdentityModel.Tokens.Jwt -Version 5.6.0
